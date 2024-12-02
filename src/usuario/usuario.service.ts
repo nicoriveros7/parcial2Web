@@ -1,8 +1,7 @@
-/* archivo: src/usuario/usuario.service.ts */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity/usuario.entity';
 import {
   BusinessLogicException,
   BusinessError,
@@ -16,7 +15,7 @@ export class UsuarioService {
   ) {}
 
   // crearUsuario()
-  async create(
+  async crearUsuario(
     cedula: number,
     nombre: string,
     grupoInvestigacion: string,
@@ -63,7 +62,7 @@ export class UsuarioService {
   }
 
   // eliminarUsuario(id)
-  async remove(id: string): Promise<void> {
+  async eliminarUsuario(id: string): Promise<void> {
     const usuario = await this.findUsuarioById(id);
     if (!usuario) {
       throw new BusinessLogicException(
@@ -72,7 +71,10 @@ export class UsuarioService {
       );
     }
 
-    if (usuario.rol === 'Decana' || usuario.bonos.length > 0) {
+    if (
+      usuario.rol === 'Decana' ||
+      (usuario.bonos && usuario.bonos.length > 0)
+    ) {
       throw new BusinessLogicException(
         'No se puede eliminar un usuario con rol de Decana o con bonos asociados',
         BusinessError.PRECONDITION_FAILED,

@@ -5,8 +5,8 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
-import { BonoEntity } from 'src/bono/bono.entity/bono.entity';
-import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
+import { BonoEntity } from '../../bono/bono.entity/bono.entity';
+import { UsuarioEntity } from '../../usuario/usuario.entity/usuario.entity';
 
 @Entity()
 export class ClaseEntity {

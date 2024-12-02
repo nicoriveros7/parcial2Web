@@ -1,10 +1,9 @@
-/* archivo: src/bono/bono.service.ts */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BonoEntity } from 'src/bono/bono.entity/bono.entity';
-import { ClaseEntity } from 'src/clase/clase.entity/clase.entity';
-import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
+import { BonoEntity } from '../bono/bono.entity/bono.entity';
+import { ClaseEntity } from '../clase/clase.entity/clase.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity/usuario.entity';
 import {
   BusinessLogicException,
   BusinessError,
@@ -22,10 +21,12 @@ export class BonoService {
   ) {}
 
   // crearBono() –
-  async create(
+  async crearBono(
     monto: number,
     usuarioId: string,
     claseId: string,
+    palabraClave: string,
+    calificacion: number,
   ): Promise<BonoEntity> {
     if (monto <= 0) {
       throw new BusinessLogicException(
@@ -54,7 +55,13 @@ export class BonoService {
       );
     }
 
-    const bono = this.bonoRepository.create({ monto, usuario, clase });
+    const bono = this.bonoRepository.create({
+      monto,
+      usuario,
+      clase,
+      palabraClave,
+      calificacion,
+    });
     return await this.bonoRepository.save(bono);
   }
 
@@ -90,7 +97,7 @@ export class BonoService {
   }
 
   // deleteBono(id) –
-  async remove(id: string): Promise<void> {
+  async deleteBono(id: string): Promise<void> {
     const bono = await this.bonoRepository.findOne({ where: { id } });
     if (!bono) {
       throw new BusinessLogicException(

@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { UsuarioEntity } from 'src/usuario/usuario.entity/usuario.entity';
-import { ClaseEntity } from 'src/clase/clase.entity/clase.entity';
-
+import { UsuarioEntity } from '../../usuario/usuario.entity/usuario.entity';
+import { ClaseEntity } from '../../clase/clase.entity/clase.entity';
 @Entity()
 export class BonoEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -10,7 +9,7 @@ export class BonoEntity {
   @Column()
   monto: number;
 
-  @Column('double')
+  @Column('double precision', { default: 0 })
   calificacion: number;
 
   @Column()

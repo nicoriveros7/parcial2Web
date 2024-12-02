@@ -1,8 +1,7 @@
-/* archivo: src/clase/clase.service.ts */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ClaseEntity } from 'src/clase/clase.entity/clase.entity';
+import { ClaseEntity } from '../clase/clase.entity/clase.entity';
 import {
   BusinessLogicException,
   BusinessError,
@@ -16,7 +15,7 @@ export class ClaseService {
   ) {}
 
   // crearClase() -
-  async create(
+  async crearClase(
     nombre: string,
     codigo: string,
     creditos: number,
